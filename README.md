@@ -1,4 +1,4 @@
-The Problem:
+1. The requirements:
 
 Coding Exercise
 
@@ -8,21 +8,29 @@ The class should be able to queue a number of objects in a thread-safe manner fo
 
 The class should provide the following functions :
 
-1. pop
+pop
 
 The reader thread calls this function to fetch the next available item. If no items are available, the background thread should be put to sleep until an item becomes available.
 
-2. pop_try
+pop_try
 
 The reader thread calls this function to fetch the next available item. If no items are available, the function will return immediately and indicate to the calling thread that no items are available.
 
-3. push
+push
 
 The writer thread calls this function to push an item into the queue. If there is no room in the queue for the item, the function should return immediately and indicate to the calling thread that the item was not pushed to the queue.
 
 Please provide your solution in a git repository, with a build system and instructions on how to build and run your app
 
 
-Build Instruction:
+2. Structure of the source code tree:
 
+Folder "src" contains the source code.
+Folder "Debug" contains the makefiles and excecutable binary.
 
+3. Instructions to build:
+
+Firstly enter folder "Debug".
+To clean the project: "make clean".
+To make the project: "make".
+To test the project: "./MyQueue"
