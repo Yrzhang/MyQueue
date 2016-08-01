@@ -148,9 +148,21 @@ namespace
                                                                         break;
                                                                 }
                                                                 someData tem;
+                                                                bool isblocking = static_cast<bool> (getRandom(0,1));
+                                                                if (isblocking)
+                                                                {
+                                                                        testQueue.pop(tem);
+                                                                        outDataVec.push_back(tem);
+                                                                }
 
-                                                                testQueue.pop(tem);
-                                                                outDataVec.push_back(tem);
+                                                                else
+                                                                {
+                                                                        bool result = testQueue.pop_try(tem);
+                                                                        if (result)
+                                                                        {
+                                                                                outDataVec.push_back(tem);
+                                                                        }
+                                                                }
                                                         }
                                                         std::cout << "pop finished" << std::endl;
                                                         return outDataVec;
@@ -180,7 +192,7 @@ int main()
                 TwoThreadTestCase();
                 std::cout << std::endl;
                 std::cout << std::endl;
-                std::cout << "Press ctr + D to end the test" << std::endl;
+                std::cout << "Press ctr + C to end the test" << std::endl;
                 std::this_thread::sleep_for(std::chrono::milliseconds(2000));
         }
     return 0;
