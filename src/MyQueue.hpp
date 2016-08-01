@@ -20,10 +20,10 @@ public:
         using uniqueLock = std::unique_lock<std::mutex>;
 
         MyQueue(int maxSize = 100): m_max_size(maxSize){} //default constructor
-        MyQueue(const MyQueue<T>&);                       		  //copy constructor;
-        MyQueue(MyQueue<T> &&) noexcept;                  		  //move constructor
-        MyQueue& operator=(const MyQueue<T>&);            	      //assignment
-        MyQueue& operator=(MyQueue<T>&& rhs) noexcept;       	  //move assignment
+        MyQueue(const MyQueue<T>&);                       //copy constructor;
+        MyQueue(MyQueue<T> &&) noexcept;                  //move constructor
+        MyQueue& operator=(const MyQueue<T>&);            //assignment
+        MyQueue& operator=(MyQueue<T>&& rhs) noexcept;    //move assignment
         virtual ~MyQueue(){}
 
         virtual void pop(T& data);
