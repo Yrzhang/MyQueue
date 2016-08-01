@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : MyQueue.cpp
-// Author      : yang
+// Author      : yangran Zhang
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : unit test code for thread safe queue, C++ 11 style.
 //============================================================================
 
 #include <iostream>
@@ -17,13 +17,13 @@
 
 namespace
 {
-        struct someData
+    struct someData
     {
        int i;
        std::string str;
        bool operator==(const someData& rhs)
            {
-           return i == rhs.i && str == rhs.str;
+              return i == rhs.i && str == rhs.str;
            }
     };
 
@@ -39,7 +39,7 @@ namespace
         assert(number > 1);
         int max = number > 100 ? number : 100;
         MyQueue<someData> dataQue(max);
-        for (int i = 1; i <= number; ++i)
+        for(int i = 1; i <= number; ++i)
         {
                 std::string text = "item " + std::to_string(i);
                 dataQue.push({i, text});
@@ -52,7 +52,7 @@ namespace
         {
                 std::cout << "simple test case..." << std::endl;
                 std::vector<MyQueue<someData> > queVec;
-        for (int i = 0; i < 3; ++i)
+        for(int i = 0; i < 3; ++i)
         {
                 //test move constructor
                 queVec.push_back(createQueue(3));
@@ -73,7 +73,7 @@ namespace
 
         //check values after multiple copies.
         someData testData;
-        for (int i = 0; i < 3; ++i)
+        for(int i = 0; i < 3; ++i)
         {
                 queue3.pop(testData);
         }
@@ -90,7 +90,7 @@ namespace
         std::cout << "simple tests passed." << std::endl;
         }
 
-    /*Test case with 2 threads.  One thread push data to the queue and other thread pop data.
+    	/*Test case with 2 threads.  One thread push data to the queue and other thread pop data.
          *two threads start at the same time, and the timing between each pop and push
          *operation is random, to simulate real life scenario.
          */
@@ -99,8 +99,8 @@ namespace
                 int number = 10;
                 std::vector<someData> inDataVec;
 
-                //generate values for input vector
-        for (int i = 1; i <= number; ++i)
+        //generate values for input vector
+        for(int i = 1; i <= number; ++i)
         {
                 std::string text = "item " + std::to_string(i);
                 inDataVec.push_back({i, text});
@@ -138,10 +138,10 @@ namespace
                                     	std::cout << "start to pop thread in fut" << std::endl;
                                     	std::vector<someData> outDataVec;
 
-                                        while (true)
+                                        while(true)
                                     	{
                                            std::this_thread::sleep_for(std::chrono::milliseconds(getRandom(0, 20)));
-                                           if (testQueue.isEmpty() &&
+                                           if(testQueue.isEmpty() &&
                                                push_finished_fut.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
                                            {
                                            	std::cout << "future received" << std::endl;
@@ -149,7 +149,7 @@ namespace
                                            }
                                            someData tem;
                                            bool isblocking = static_cast<bool> (getRandom(0,1));
-                                           if (isblocking)
+                                           if(isblocking)
                                            {
                                            	testQueue.pop(tem);
                                            	outDataVec.push_back(tem);
@@ -157,8 +157,7 @@ namespace
 
                                            else
                                            {
-                                           	bool result = testQueue.pop_try(tem);
-                                           	if (result)
+                                          	if(testQueue.pop_try(tem))
                                                 {
                                                 	outDataVec.push_back(tem);
                                                 }
@@ -173,7 +172,7 @@ namespace
                 std::vector<someData> resultDataVec = pop_fut.get();
 
                 assert(resultDataVec.size() == inDataVec.size());
-                for (size_t i = 0; i < resultDataVec.size(); ++i)
+                for(size_t i = 0; i < resultDataVec.size(); ++i)
                 {
                         assert(resultDataVec[i] == inDataVec[i]);
                 }
@@ -184,7 +183,7 @@ namespace
 
 int main()
 {
-    while (true)
+    while(true)
     {
     	simpleTestCase();
    	TwoThreadTestCase();

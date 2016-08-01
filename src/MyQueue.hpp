@@ -2,8 +2,8 @@
  * MyQueue.hpp
  *
  *  Created on: 29 Jul 2016
- *      Author: Yangran Zhang
- *
+ *  Author: Yangran Zhang
+ *  Class definition for thread safe queue. C++ 11 style.
  */
 
 #ifndef MYQUEUE_HPP_
