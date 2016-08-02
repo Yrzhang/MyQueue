@@ -22,7 +22,7 @@ The writer thread calls this function to push an item into the queue. If there i
 
 Please provide your solution in a git repository, with a build system and instructions on how to build and run your app
 
-3. Structure of the source code tree:
+2. Structure of the source code tree:
 
 Folder "src" contains the source code.
 "GenericQueue.hpp": Empty base class defenition.
@@ -32,7 +32,7 @@ Folder "src" contains the source code.
 
 Folder "Debug" contains the makefiles and excecutable binary.
 
-4. Instructions to build:
+3. Instructions to build:
 
 Firstly enter folder "Debug".
 To clean the project: "make clean".
