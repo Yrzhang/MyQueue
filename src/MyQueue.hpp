@@ -2,8 +2,8 @@
  * MyQueue.hpp
  *
  *  Created on: 29 Jul 2016
- *  Author: Yangran Zhang
- *  Class definition for thread safe queue. C++ 11 style.
+ *      Author: Yangran Zhang
+ *
  */
 
 #ifndef MYQUEUE_HPP_
@@ -11,9 +11,10 @@
 #include <mutex>
 #include <queue>
 #include <condition_variable>
+#include "GenericQueue.hpp"
 
 template <typename T>
-class MyQueue
+class MyQueue : public GenericQueue<T>
 {
 public:
         using simpleLock = std::lock_guard<std::mutex>;
@@ -26,11 +27,11 @@ public:
         MyQueue& operator=(MyQueue<T>&& rhs) noexcept;    //move assignment
         virtual ~MyQueue(){}
 
-        virtual void pop(T& data);
-        virtual bool pop_try(T& data);
-        virtual bool push(T data);
-        virtual bool isEmpty(void) const;
-        virtual int getMaxSize(void) const;
+        virtual void pop(T& data) override;
+        virtual bool pop_try(T& data) override;
+        virtual bool push(T data) override;
+        virtual bool isEmpty(void) const override;
+        virtual int getMaxSize(void) const override;
 
 private:
         size_t m_max_size;
