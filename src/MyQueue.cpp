@@ -115,7 +115,8 @@ namespace
         std::shared_future<void> push_finished_fut(push_finished.get_future());
         std::future<void> push_fut;
         std::future<std::vector<someData> > pop_fut;
-
+            try
+            {
                 push_fut = std::async(std::launch::async,
                                      [&testQueue, &inDataVec, start_test_fut, &push_finished]()
                                      {
@@ -171,6 +172,7 @@ namespace
                 push_fut.get();
                 std::vector<someData> resultDataVec = pop_fut.get();
 
+                assert (testQueue.isEmpty());
                 assert(resultDataVec.size() == inDataVec.size());
                 for(size_t i = 0; i < resultDataVec.size(); ++i)
                 {
@@ -178,6 +180,12 @@ namespace
                 }
 
                 std::cout << "2 threads tests passed" << std::endl;
+            }
+            catch(...)
+            {
+                start_test.set_value();
+                throw;
+            }
         }
 }
 
