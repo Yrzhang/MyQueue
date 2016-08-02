@@ -22,13 +22,17 @@ The writer thread calls this function to push an item into the queue. If there i
 
 Please provide your solution in a git repository, with a build system and instructions on how to build and run your app
 
-
-2. Structure of the source code tree:
+3. Structure of the source code tree:
 
 Folder "src" contains the source code.
+"GenericQueue.hpp": Empty base class defenition.
+"MyLFQueue.hpp": An implementation of a lock free queue structure, using atomic varaibles and future/promise.  Suitable for single reader/writer.
+"MyQueue.hpp": An implementation of a queue structure using mutex, and condition variable, suitable for multiple readers/writers
+"MyQueue.cpp": Unit test code.  There are 2 test cases.  The first test case exercises the constructors/assignment operators for the "MyQueue" class.  The second test cases exercises both "MyLFQueue" class and "MyQueue", in 2 separate reader/writer threads.  The unit test use random timing and trying to simulate the usage of the queue structure in real life.
+
 Folder "Debug" contains the makefiles and excecutable binary.
 
-3. Instructions to build:
+4. Instructions to build:
 
 Firstly enter folder "Debug".
 To clean the project: "make clean".
