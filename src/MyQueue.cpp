@@ -11,6 +11,7 @@
 #include <cassert>
 #include <thread>
 #include <future>
+#include <algorithm>
 #include "MyQueue.hpp"
 #include "MyLFQueue.hpp"
 #include "GenericQueue.hpp"
@@ -96,14 +97,17 @@ void simpleTestCase()
 void TwoThreadTestCase(GenericQueue<someData>& testQueue) 
 {
 	int number = 10;
-	std::vector<someData> inDataVec;
+        std::vector<someData> inDataVec(number);
+        int value = 1;
+	//generate values for input vector       
+        std::generate(begin(inDataVec), end(inDataVec), [&value]()
+                        {
+                                std::string text = "item " + std::to_string(value);
+                                someData tem = {value, text};
+                                value++;
+                                return tem;
+                        });
 
-	//generate values for input vector
-	for (int i = 1; i <= number; ++i) 
-	{
-		std::string text = "item " + std::to_string(i);
-		inDataVec.push_back( { i, text });
-	}
 	srand(static_cast<unsigned int>(time(NULL))); //random seed
 	
 	std::promise<void> start_test, push_finished;
