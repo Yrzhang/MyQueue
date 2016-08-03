@@ -164,9 +164,7 @@ void TwoThreadTestCase(GenericQueue<someData>& testQueue)
 
 		assert(testQueue.isEmpty());
 		assert(resultDataVec.size() == inDataVec.size());
-		for (size_t i = 0; i < resultDataVec.size(); ++i) {
-			assert(resultDataVec[i] == inDataVec[i]);
-		}
+                assert(std::equal(begin(inDataVec), end(inDataVec), begin(resultDataVec)));
 
 		std::cout << "2 threads tests passed" << std::endl;
 	} 
